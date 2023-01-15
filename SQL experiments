@@ -1,0 +1,58 @@
+Create DATABASE:
+Syntax: create database databaseName;
+use databaseName;
+Q1 - Create a table called EMP with the following structure
+ Name Type
+---------- ----------------------
+EMPNO NUMBER(6)
+ENAME VARCHAR2(20)
+JOB VARCHAR2(10)
+DEPTNO NUMBER(3)
+SAL NUMBER(7)
+Allow NULL for all columns except ename and job.
+A - create table emp(empno int, ename varchar(20), job varchar(10),deptno int, sal int);
+
+Q2 - Add a column experience to the emp table. experience numeric null allowed.
+A - alter table emp add(experience int);
+
+Q3: Modify the column width of the job field of emp table.
+A - alter table emp modify job varchar(12);
+ alter table emp modify job varchar(13);
+ 
+ Q4: Create dept table with the following structure
+Name Type
+------------ ---------------------
+DEPTNO NUMBER(2)
+DNAME VARCHAR2(10)
+LOC VARCHAR2(10)
+Deptno as the primarykey
+A - create table dept(deptno int primary key, dname varchar(10), loc varchar(10));
+
+Q5: drop a column experience to the emp table.
+alter table emp drop column experience;
+
+Q6: Truncate the emp table and drop the dept table
+truncate table emp;
+ drop table dept;
+ 
+ Q7: Insert a single record into dept table.
+ Ans:  insert into dept values (1,'IT','Tholudur');
+ 
+Q8 Insert more than a record into emp table using a single insert
+command.
+Ans:  insert into emp values(1,'Mathi','AP',1,10000);
+ insert into emp values(2,'Arjun','ASP',2,12000);
+  insert into emp values(3,'Gugan','ASP',1,12000);
+  
+ Q9  Update the emp table to set the salary of all employees to
+Rs15000/- who are working
+as ASP
+select * from emp;
+ update emp set sal=15000 where job='ASP';
+ select * from emp;
+ 
+ Q10 Create a pseudo table employee with the same structure as the
+table emp and insert
+rows into the table using select clauses.
+create table employee as select * from emp;
+desc employee;
