@@ -56,3 +56,81 @@ table emp and insert
 rows into the table using select clauses.
 create table employee as select * from emp;
 desc employee;
+
+Q11: select employee name, job from the emp table
+select ename, job from emp;
+
+Q12 Delete only those who are working as lecturer
+ select * from emp;
+ delete from emp where job='lect';
+  select * from emp;
+  
+  Q13: List the records in the emp table orderby salary in ascending
+order
+select * from emp order by sal;
+
+Q14 List the records in the emp table orderby salary in descending
+order.
+ select * from emp order by sal desc;
+
+Q15 Display deptno from the table employee avoiding the duplicated
+values.
+ select distinct deptno from emp;
+ 
+ Q16 Display all the dept numbers available with the dept and emp tables avoiding
+duplicates.
+ select dept from emp union select deptno from dept;
+
+Q17: Display all the dept numbers available with the dept and emp tables.
+ select dept from emp union all select deptno from dept;
+ 
+ Q18 Display all the dept numbers available in emp and not in dept tables and vice versa.
+  select dept from emp minus select deptno from dept;
+select dept from dept minus select deptno from emp;
+
+Queries for JOINS:
+ select * from emp;
+ select * from dept;
+ 
+Q19 Display the employee details, departments that the departments are same in both the
+emp and dept.
+ select * from emp,dept
+where emp.dept=dept.deptno;
+
+Q20 Display the employee details, departments that the departments are ame in both the
+emp and dept.
+select * from emp,dept where emp.dept!=dept.deptno;
+
+Q21 Display the Student name and grade by implementing a left outer join
+select stud1.name, GRA from stud3 left join stud1 on stud1.Name=stud3.Name;
+
+Q22: Display the Student name, register no, and result by implementing a right outer join. 
+ select stud1.Name, Regno, Result from stud1 right join stud3 on stud1.name = stud3.name;
+ 
+ Q23: Display the Student name register no by implementing a full outer join
+ select stud1.name, regno from stud1 full outer join stud2 on (stud1.name= stud2.name);
+
+Q24 Write a query to display their employee names.
+ select distinct ename from emp x, dept y where x.deptno=y.deptno;
+
+Q25: Display the details of those who draw the salary greater than the average salary.
+select distinct * from emp x where x.sal >= (select avg(sal) from emp);
+
+Lets use some SQL queries on the above table and see the results.
+INSERT into class
+values(5,'Rahul'); commit;
+UPDATE class set name='abhijit' where
+id='5'; savepoint A;
+INSERT into class
+values(6,'Chris'); savepoint B;
+INSERT into class
+values(7,'Bravo'); savepoint C;
+SELECT * from class;
+Now rollback to savepoint B
+rollback to B;
+SELECT * from
+class;
+Now rollback to savepoint A
+rollback to A;
+SELECT * from
+class;
