@@ -1,36 +1,3 @@
-// Reading input by creating an object of scanner class
-import java.util.Scanner;
-class Student
-{
-public static void main(String args[])
-{
-Scanner s1 = new Scanner(System.in);
-System.out.println("Enter an Integer: ");
-int a;
-a = s1.nextInt();
-System.out.println("The entered integer is "+a);
-}
-}
-
-// Use of system.out.println
-import java.util.Scanner;
-class Test
-Department of Information Technology | APSIT
-{
-public static void main(String args[])
-{
-Scanner sc = new Scanner(System.in);
-System.out.println("Enter your ID: ");
-int roll = sc.nextInt();
-System.out.println("Enter your name: ");
-String name = sc.next();
-System.out.println("Enter your fee: ");
-double fee = sc.nextDouble();
-System.out.println("Roll No.: "+roll+"Name: "+name+"Fee:"+fee);
-sc.close();
-}
-}
-
 // Experiment 1
 import java.util.*;
 public class Employee
