@@ -7,8 +7,7 @@ String Designation;
 double Experience;
 void DisplayInfo()
 {
-System.out.println("The Teacher information is: "+"\n"+"Name="+name+"\
-n"+"Qualification="+Qualification+"\n"+"Designation="+Designation+"\n");
+System.out.println("The Teacher information is: "+"\n"+"Name="+name+"\n"+"Qualification="+Qualification+"\n"+"Designation="+Designation+"\n");
 }
 }
 class AssistantProfessor extends Teacher
