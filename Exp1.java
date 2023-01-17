@@ -13,7 +13,6 @@ id = obj.next();
 System.out.println("Enter Employee Name: ");
 ename = obj.next();
 System.out.println("Enter Employee Basic Salary: ");
-Department of Information Technology | APSIT
 bsal = obj.nextDouble();
 double HRA = (10*bsal)/100;
 double DA = (73*bsal)/100;
