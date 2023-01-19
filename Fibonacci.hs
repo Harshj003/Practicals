@@ -8,3 +8,5 @@ take 10(iterate (\x->(x+3)*2)1)
 take 4(repeat 3)
 replicate 3 5
 take 10(cycle[1,2,3])
+let fibs = 0:1:zipWith(+)fibs(tail fibs)
+take 10 fibs
