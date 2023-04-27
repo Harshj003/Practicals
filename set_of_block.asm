@@ -1,4 +1,4 @@
-// Program 1
+;Program 1
 .MODEL SMALL
 
 .STACK 100H
@@ -58,7 +58,7 @@ DSE DB 5 DUP(0)
 
 
 
-// Program 2
+;Program 2
 START:
 
 MOV AX,@DATA
