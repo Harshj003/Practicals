@@ -1,3 +1,4 @@
+// Program 1
 .MODEL SMALL
 
 .STACK 100H
@@ -40,3 +41,56 @@ MOV AH,4CH
 INT 21H
 
 END START
+
+
+.MODEL SMALL
+
+.STACK 100H
+
+.DATA
+
+SOU DB 24H,12H,34H,81H,59H
+
+DSE DB 5 DUP(0)
+
+
+.CODE 
+
+
+
+// Program 2
+START:
+
+MOV AX,@DATA
+
+MOV DS,AX
+
+
+LEA SI,SOU
+
+LEA DI,DSE
+
+MOV CX,5
+
+
+BACK:
+
+MOV AL,[SI]
+
+MOV [DI],AL
+
+INC SI
+
+INC DI
+
+LOOP BACK
+
+
+EXIT:
+
+MOV AH,4CH
+
+INT 21H
+
+END START
+
