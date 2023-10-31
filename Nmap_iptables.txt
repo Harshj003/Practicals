@@ -1,0 +1,147 @@
+NMAP 
+
+USE LOOPBACK ADDRESS 127.0.0.1
+
+SERVICE HTTPD START
+SERVICE FIREWALLD START  / STOP
+
+tcpdump -i lo -n port 80
+
+
+******************************************************
+*nmap -sS -p 80 127.0.0.1 (half scan/tcp syn)*
+send tcp syn packets to ports to determine if they are open, close or filtered by firewall.
+doesnt complete full tcp handshake.
+effective than full scan.
+
+*nmap -sT -p 80 127.0.0.1 (Tcp connect/ full scan)*\
+establish full tcp connection to each port to determine if they are open or closed.
+
+*nmap -sU -p 80 127.0.0.1 (UDP scan)*
+used to identify open UDP ports.(user datagram protocls).
+udp is connectionless.
+send udp packets to ports to determine if they are open, closed.
+more challenging because it doesnt provide the same acknowledgment of successful packet delivery.
+
+*nmap -sF -p 80 127.0.0.1 (FIN scan)*
+The FIN scan sends FIN (Finish) packets to ports to determine their state. An open port should not respond to a FIN packet, while a closed port should respond with an RST (Reset) packet.
+
+*nmap -sV -p 80 127.0.0.1 (Version detection)*
+The Version Detection scan is used to identify the specific application or service running on open ports.
+
+zombie bhi hai sI
+
+*nmap -O -p 80 127.0.0.1 (OS detection)*
+identify the operating system of the target
+
+
+
+iptables -L   (STATUS OF CHAIN)
+iptables -L INPUT
+iptables -L OUTPUT
+iptables --flush
+
+service firewalld status
+service firewalld stop
+service firewalld status
+
+service httpd status 
+service httpd stop
+service httpd status 
+
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+
+*******************************************
+RULES FOR PRIMARY:
+
+Rule for incoming trffic of http:
+
+1> iptables -A INPUT -P tcp --dport 80 -m conntrack --ctstate NEW, ESTABLISHED -j ACCEPT
+
+2> pair rule:
+   iptables -A OUTPUT -P tcp --sport 80 -m conntrack --ctstate ESTABLISHED -j ACCEPT   
+
+Rule for incoming trffic of http:
+
+1> iptables -A OUTPUT -P tcp --dport 80 -m conntrack --ctstate NEW, ESTABLISHED -j ACCEPT
+
+2>iptables -A INPUT -P tcp --sport 80 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+
+
+#rpm -q squid ipsec-tools
+# ifconfig
+#ping pcs
+#service network restart
+
+#system-config-network  (to open nw configuration in fedora 8)
+
+delete ipsecs
+
+
+click on new tab and creat new ipsec connection
+
+
+give nickname and this nickname must be same on both vpn.
+
+choose automatic encryption mode.
+
+
+put destination host ip 
+
+host1 : 192.168.8.1
+host2 : 192.168.9.1
+
+provide authentication key: 123456 (same on both hosts)
+
+repeat same process on host2
+
+
+
+click on apply.
+deactivate connection
+activate conection
+save file
+
+
+#service network restart
+
+
+#sudo tcpdump -i any -n -XX icmp
+(before creating vpn payload is visible in tcpdump, icmp packets)
+
+#sudo tcpdump -i any -n -A -XX host ip_Address
+
+AH- authentication header at ipsec
+ESP- encaspulated payload
+*payload not visible (impact of vpn)
+
+
+*************************************
+
+ipsec is set of protocols or rules for setting up secure connection over a network.
+
+it provides encryption and authentication.
+
+two modes of ipsec transport mode and tunnel mode:
+
+1. *Transport mode*:
+only protects information coming from transport layer.
+only encapsulated ip payload.
+(used for host to host or end to end protection of data.)
+
+ipsec add its header and trailer to the data coming from tr layer.
+after this original ip header is added , which is left unchanged.
+
+
+2. *Tunnel mode*:
+it protects original ip header.
+protects entire ip packet.
+between host to router or visaversa.
+
+it adds original ip header.
+new ipsec header is used for routing.
+
+
+
