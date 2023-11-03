@@ -1,0 +1,323 @@
+EXP 1 - cloud9
+
+1. Login with your AWS account.
+2. Navigate to Cloud 9 service from Developer tools section
+3. Click on Create Enviornment
+4. Provide name for the Enviornment (WebAppIDE) and click on next.
+5. Keep all the Default seetings
+6. Review the Enviornment name and Settings and click on Create Enviornment
+It will take few minutes to create aws instance for your Cloud 9 Enviornment.
+7. Till that time open IAM Identity and Access Management in order to Add user In other tab
+8. Add user provide manual password if you want and click on Next permission tab, choose custom password
+9. Click on Create group
+10. Provide group name and click on create group
+11. After that group is created click on next if u want to provide tag else click on Review for
+user settings and click on create user
+12. Now close that window and Navigate to user Groups from left pane in IAM
+13. click on your group name which you have created and nevigate to permission tab
+14. Now click on Add permission and select Attach Policy after that search for Cloud9 related policy and select Awscloud9EnviornmentMember policy and add it.
+15. now we move towards our cloud9 IDE Enviornment tab
+16. If you check at bottom side Cloud9 IDE also giving you and aws CLI for command operations: as we here checked git version, iam user details 
+git --version
+aws iam get-user
+you'll get userID
+17. Now we will setup collaborative enviornment Click on File you can create new file or choose from template, here m opting html file to collaborate
+18. Edit html file and save it
+19. now in order to share this file to collaborate with other members of your team click on Share option on Roght Pane and username which you created in IAM before into Invite members and enable persmission as RW (Read and Write) and click on Done. Click OK for Security warning
+20. Now Open your Browsers Incognito Window and login with IAM user which you configured before. 
+userId will be used here for login
+21. After Successful login with IAM user open Cloud9 service from dashboard services and click on shared with you enviornment to collaborate.
+22. Click on Open IDE you will same interface as your other member have to collaborate in real time, also you all within team can do group chats as shown below:
+
+EXP 5,6 - terraform
+
+https://www.terraform.io/downloads.html
+unzip terraform_1.0.3_linux_amd64.zip
+cd terraform_1.../
+sudo mv terraform /usr/local/bin
+terraform -v
+sudp apt-get install curl
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+sudo unzip awscliv2.zip
+ sudo ./aws/install
+ aws --version
+
+Create a new access key if you don't have one. Make sure you download the keys in your
+local machine.
+Login to AWS console, click on username and go to My security credentials.
+Continue on security credentials, click on access keys
+check region
+
+aws configure
+keep outputformt - null
+ mkdir project-terraform
+ cd project-terraform
+
+In order to provide key name in variables first create key pair
+keep default settings
+name-terraform
+
+sudo nano variables.tf
+code - 
+variable "aws_region" { 
+description "The AWS region to create things in." 
+default = "ap-south-1"
+
+}
+
+variable "key_name" { 
+description SSH keys to connect to ec2 instance" 
+default = "terraform"
+
+}
+
+variable "instance_type" { 
+description "instance type for ec2" 
+default = "t2.micro"
+
+}
+
+
+After creating variable terraform file note down the AMI ID of instance which u want to create
+which we will use to configure our instance in main.tf file
+
+sudo nano main.tf
+code -
+provider "aws" {
+region = var.aws_region
+}
+#Create security group with firewall rules
+resource "aws_security_group" "security_jenkins_port" {
+name = "security_jenkins_port"
+description = "security group for jenkins"
+ingress {
+from_port = 8080
+to_port = 8080
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+ingress {
+from_port = 22
+to_port = 22
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+# outbound from jenkis server
+egress {
+from_port = 0
+to_port = 65535
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+tags= {
+Name = "security_jenkins_port"
+}
+}
+resource "aws_instance" "myFirstInstance" {
+ami = "ami-0b9064170e32bde34"   
+key_name = var.key_name
+instance_type = var.instance_type
+security_groups= [ "security_jenkins_port"]
+tags= {
+Name = "jenkins_instance"
+}
+}
+# Create Elastic IP address
+resource "aws_eip" "myFirstInstance" {
+vpc = true
+instance = aws_instance.myFirstInstance.id
+tags= {
+Name = "jenkins_elstic_ip"
+}
+}
+
+change the ami id and put the one you generated.
+
+terraform init
+terraform plan
+terraform apply
+
+check in aws instances and security would be created
+
+terraform destory
+
+
+EXP 7 - SAST/sonarqube
+
+$wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+$When the key is added, the system will return OK. Next, append the Debian package repository address to the $server’s sources.list:
+$sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+$sudo apt update
+$sudo apt install jenkins
+$sudo systemctl start jenkins
+$sudo systemctl status jenkins
+
+Opening the Firewall
+By default, Jenkins runs on port 8080, so let’s open that port using ufw:
+
+$sudo ufw allow 8080
+
+You should see the Unlock Jenkins screen, which displays the location of the initial password:
+
+$sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+Copy the 32-character alphanumeric password from the terminal and paste it into the Administrator password field, then click Continue.
+click on install suggested plugins.
+
+When the installation is complete, you will be prompted to set up the first administrative user fill in details and clcik save and continue
+jenkins url : http://127.0.0.1:8080//
+
+After confirming the appropriate information, click Save and Finish. You will see a confirmation page confirming that “Jenkins is Ready!”
+Click Start using Jenkins to visit the main Jenkins dashboard
+
+SonarQube Setup
+
+Before proceeding with the integration, we will setup SonarQube Instance. we are using SonarQube Docker Container.
+
+$docker run -d -p 9000:9000 sonarqube
+In the above command, we are forwarding port 9000 of the container to the port 9000 of the host machine as SonarQube is will run on port 9000. Then, from the browser, enter http://localhost:9000. After That, you will see the SonarQube is running. Then, login using default credentials (admin:admin).
+
+Generate User Token
+
+Now, we need to get the SonarQube user token to make connection between Jenkins and SonarQube. For the same, go to Administration> User > My Account > Security and then, from the bottom of the page you can create new tokens by clicking the Generate Button. Copy the Token and keep it safe.
+C96798e9bd081e117189b516c868ddb7d87ee785     SonarQube
+
+Jenkins Setup for SonarQube
+
+Before all, we need to install the SonarQube Scanner plugin in Jenkins. For the same, go to Manage Jenkins > Plugin Manager > Available. From here, type SonarQube Scanner then select and install.
+
+Tool Configuration SonarQube Scanner
+
+Now, we need to configure the Jenkins plugin for SonarQube Scanner to make a connection with the SonarQube Instance. For that, got to Manage Jenkins > Configure System > SonarQube Server. Then, Add SonarQube. In this, give the Installation Name, Server URL then Add the Authentication token in the Jenkins Credential Manager and select the same in the configuration.
+server url - http://localhost:9000
+Then, we need to set-up the SonarQube Scanner to scan the source code in the various stage. For the same, go to Manage Jenkins > Global Tool Configuration > SonarQube Scanner. Then, Click Add SonarQube Scanner Button. From there, give some name of the scanner type and Add Installer of your choice. In this case, I have selected SonarQube Scanner from Maven Central.
+
+SonarQube Scanner in Jenkins Pipeline
+
+Now, It’s time to integrate the SonarQube Scanner in the Jenkins Pipeline. For the same, we are going to add one more stage in the Jenkinsfile called SonarQube
+make a new project named sonaqube
+freestyle
+tick on github project
+use vishal003 ka githib
+write the following script -
+
+node
+{
+stage('cloning from GIT'){
+git branch: 'main'. credentials: 'GIT_REPO', url: "paste vishal ka url"
+}
+}
+
+save and apply 
+build.
+
+
+EXP 9 nagios
+
+sudo apt-get update
+sudo apt-get install wget build-essential unzip openssl libssl-dev
+sudo apt-get install apache2 php libapache2-mod-php php-gd libgd-dev
+
+sudo add user nagios1
+sudo groupadd nagcmd
+sudo usermod -a -G nagcmd nagios
+sudo usermod -a -G nagcmd www-data
+cd /opt/
+sudo wget
+sudo wget https://assest.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+cd ../
+cd downloads
+sudo wget https://assest.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+sudo tr xzf nagios-4.4.3.tar.gz
+cd nagios-4.4.3
+sudo ./configure --with-command-group=nagcmd
+sudo make all
+sudo make install
+sudo make install-init
+sudo make install-daemoninit
+sudo make install-config
+sudo make install-commandmode
+sudo cp =R contrib/eventhandlers/ /usr/local/nagios/libexec/
+sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
+sudo nano /etc/apache2/conf-available/nagios.conf
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+sudo a2enconf nagios1
+sudo a2enmod cgi rewrite
+sudo service apache restart
+cd /opt
+sudo wget http://www.nagios-pligins.org/download/nagios-plugins-2.2.1.tar.gz
+cd nagios-plugins-2.2.1.tar.gz
+sudo ./configure --wth-nagios-user=nagios --with-nagios-gropu=nagios
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+
+EXP 11,12 - lambda function
+
+1. Open Aws Console and search for Lambda Service and open home screen of Lambda.
+2. Choose region in which you need to create Lambda function as it is region specific.
+3. Create sum as a Lambda Function in Python Language so select latest version of 
+Python and choose role with basic Lambda Permission to allow cloudwatch for 
+monitoring.
+4. Lambda sum function is created successfully
+5. Write a sample python code for sum of two numbers -
+import json
+
+def lambda_handler(event, context):
+f_n =10
+s_n = 20
+sum = f_n + s_n
+return sum
+
+6. Configure Test Event in Json Format
+keep code area blank only keep {}
+
+
+Creating S3 Bucket
+Let us start first by creating a s3 bucket in AWS console 
+1. Go to Amazon services and click S3 in storage section
+2. Click S3 storage and Create bucket which will store the files uploaded
+3. Once you click Create bucket button, you can see a screen 
+4. Enter the details Bucket name, Select the Region and click Create button at the bottom left side.
+5. Now, click the bucket name and it will ask you to upload files
+
+Create Role that Works with S3 and Lambda
+To create role that works with S3 and Lambda
+1. Go to AWS services and select IAM 
+2. Now, click IAM -> Roles
+3. Now, click Create role and choose the services that will use this role. Select Lambda and click
+Permission button
+4. Add the permission from below and click Review.
+AmazonS3FullAccess, AWSLambda_FullAccess and CloudWatchFullAccess.
+5. Now, enter the Role name, Role description and click Create Role button at the bottom
+
+Create Lambda function and Add S3 Trigger
+In this section, let us see how to create a Lambda function and add a S3 trigger to it
+1. Go to AWS Services and select Lambda
+2. Click Lambda and follow the process for adding Name. Choose the Runtime- nodejs , Role - existing role  etc. and create
+the function. 
+3. go in configration or on the left side you'll be able to see trigger
+4. choose triffer as S3 bucket
+5. . Click Add button to add the trigger.
+6.  use nodejs as the runtime environment, To trigger S3 with AWS Lambda, we will have to use S3 event in the code 
+
+exports.handler = function(event, context, callback) {
+
+console.log("Incoming Event: event); 
+const bucket = event.Records[0].s3.bucket.name;
+const filename = decodeURIComponent(event. Records[0].s3.object.key.replace(/\+/g,' '));
+const message = An Image has been added ${bucket]} -> ${filename}';
+console.log(message);
+callback(null, message);
+};
+
+7. let us save the changes and test the lambda function with S3upload
+8. Now, save the Lambda function. Open S3 from Amazon services and open the bucket we created
+earlier
+9. upload image
+10. To see the trigger details, go to AWS service and select CloudWatch. Open the logs for the Lambda
+AWS Lambda function gets triggered when file is uploaded in S3 bucket and the details are logged
+in Cloudwatch a
+
+
+
