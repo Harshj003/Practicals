@@ -1,0 +1,71 @@
+npm install redux react-redux
+
+reduxDemo.js
+import { createStore } from 'redux';
+
+// Action types
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+// Reducer function
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+// Create a Redux store
+const store = createStore(counterReducer);
+
+// Action creators
+const increment = () => ({ type: INCREMENT });
+const decrement = () => ({ type: DECREMENT });
+
+export { store, increment, decrement };
+
+
+--------App.js----------
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement } from './reduxDemo';
+
+function App() {
+  const count = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h1>Redux Demo</h1>
+      <p>Count: {count}</p>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+    </div>
+  );
+}
+
+export default App;
+
+
+----------index.js-----------
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './reduxDemo';
+import App from './App';
+import './index.css';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+
+

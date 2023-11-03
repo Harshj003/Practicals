@@ -1,0 +1,28 @@
+exp5 arrow es6
+<Html>
+<head>
+    <title>
+        JavaScript Function
+    </title>
+    <script type="text/javascript">
+                var fun =  fibo => {
+            var pop = prompt("Enter the count of values in the series", " ");
+        var var1 = 0, var2 = 1;
+        document.write("Here is the fibonacci series : ");
+        document.write("", var1, " ");
+        document.write("", var2, " ");
+
+            var counter, sum;
+            for (counter = 2; counter < pop; counter++) {
+                sum = var1 + var2;
+                document.write("", sum, " ");
+                var1 = var2;
+                var2 = sum;
+            }
+        }
+        fun();
+    </script>
+</head>
+<body>
+</body>
+</html>

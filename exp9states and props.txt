@@ -1,0 +1,31 @@
+-------------------------exp9-------------
+import React, { Component } from 'react';
+
+// Child component that receives "name" as a prop
+class Greeting extends Component {
+  render() {
+    return <p>Hello, {this.props.name}!</p>;
+  }
+}
+
+// Parent component that manages the "message" state
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      message: 'React State and Props Demo',
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <Greeting name="Alice" />
+        <Greeting name="Bob" />
+      </div>
+    );
+  }
+}
+
+export default App;

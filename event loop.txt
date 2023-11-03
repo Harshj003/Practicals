@@ -1,0 +1,21 @@
+------------------------event loop------------------  node.js
+Asyn.js
+console.log(" Start: This is the first statement");
+ setTimeout(function(){
+    console.log("This is the second statement: Zero Second Timeout");
+}, 0);
+   
+setTimeout(function(){
+    console.log("This is the Third statement: Two Second Timeout");
+}, 2000);
+console.log(" End: This is the Last statement");
+
+--------Sync.js-------
+const listItems = function(items) {
+   items.forEach(function(item) {
+     console.log(item)
+   })
+ }
+ const items = ["Buy milk", "Buy coffee"]
+ 
+ listItems(items)

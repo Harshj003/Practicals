@@ -1,0 +1,386 @@
+exp1 portfolio
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #007acc;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #007acc;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>John Doe's Portfolio</h1>
+    </header>
+    <div class="container">
+        <section class="section">
+            <h2>About Me</h2>
+            <p>Hello, I'm John Doe, a passionate student with a strong interest in web development and programming. I'm currently pursuing a degree in Computer Science and love to learn and explore new technologies.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Skills</h2>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>Python</li>
+                <li>Web Development</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <h3>Personal Website</h3>
+                    <p>Created a personal website to showcase my portfolio and skills. Used HTML, CSS, and JavaScript for development.</p>
+                </li>
+                <li>
+                    <h3>ToDo App</h3>
+                    <p>Developed a simple ToDo web application using JavaScript and HTML/CSS for the frontend.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Contact</h2>
+            <p>You can contact me at john@example.com</p>
+        </section>
+    </div>
+</body>
+</html>
+
+
+
+
+exp2 registraion
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Placements Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #007acc;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007acc;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Placements Registration</h1>
+    </header>
+    <div class="container">
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="college">College:</label>
+            <input type="text" id="college" name="college" required>
+
+            <label for="course">Course:</label>
+            <select id="course" name="course">
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="MBA">MBA</option>
+                <option value="MCA">MCA</option>
+            </select>
+
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+exp3 css
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="portfolio-title">John Doe's Portfolio</h1>
+    </header>
+    <div class="container">
+        <section class="section about-me">
+            <h2>About Me</h2>
+            <p>Hello, I'm John Doe, a passionate student with a strong interest in web development and programming. I'm currently pursuing a degree in Computer Science and love to learn and explore new technologies.</p>
+        </section>
+        
+        <section class="section skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>Python</li>
+                <li>Web Development</li>
+            </ul>
+        </section>
+
+        <section class="section projects">
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <h3>Personal Website</h3>
+                    <p>Created a personal website to showcase my portfolio and skills. Used HTML, CSS, and JavaScript for development.</p>
+                </li>
+                <li>
+                    <h3>ToDo App</h3>
+                    <p>Developed a simple ToDo web application using JavaScript and HTML/CSS for the frontend.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section contact">
+            <h2>Contact</h2>
+            <p>You can contact me at john@example.com</p>
+        </section>
+    </div>
+</body>
+</html>
+
+css
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Header Styles */
+header {
+    background-color: #007acc;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.portfolio-title {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Section Styles */
+.section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.about-me {
+    background-color: #f7f7f7;
+}
+
+.skills {
+    background-color: #e6e6e6;
+}
+
+.projects {
+    background-color: #f7f7f7;
+}
+
+.contact {
+    background-color: #e6e6e6;
+}
+
+/* Text Styles */
+h2 {
+    color: #007acc;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* List Styles */
+ul {
+    list-style-type: disc;
+}
+
+/* Link Styles */
+a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Project Styles */
+h3 {
+    color: #007acc;
+}
+
+/* Contact Styles */
+.contact p {
+    font-weight: bold;
+    color: #333;
+}
+
+
+exp4 bootstrap
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portfolio</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white py-4">
+        <div class="container text-center">
+            <h1>John Doe's Portfolio</h1>
+        </div>
+    </header>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <section class="mb-4">
+                    <h2>About Me</h2>
+                    <p>Hello, I'm John Doe, a passionate student with a strong interest in web development and programming. I'm currently pursuing a degree in Computer Science and love to learn and explore new technologies.</p>
+                </section>
+
+                <section class="mb-4">
+                    <h2>Skills</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item">HTML5</li>
+                        <li class="list-group-item">CSS3</li>
+                        <li class="list-group-item">JavaScript</li>
+                        <li class="list-group-item">Python</li>
+                        <li class="list-group-item">Web Development</li>
+                    </ul>
+                </section>
+
+                <section class="mb-4">
+                    <h2>Projects</h2>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Personal Website</h3>
+                            <p class="card-text">Created a personal website to showcase my portfolio and skills. Used HTML, CSS, and JavaScript for development.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">ToDo App</h3>
+                            <p class="card-text">Developed a simple ToDo web application using JavaScript and HTML/CSS for the frontend.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <section class="mb-4">
+                    <h2>Contact</h2>
+                    <p>You can contact me at <a href="mailto:john@example.com">john@example.com</a></p>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
