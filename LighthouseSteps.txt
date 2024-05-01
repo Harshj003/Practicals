@@ -1,0 +1,8 @@
+Lighthouse powers the Audits panel of Chrome DevTools. To run a report:
+1. Download Google Chrome for Desktop.
+2. In Google Chrome, go to the URL you want to audit. You can audit any URL on the web.
+3. Open Chrome DevTools.
+4. Click the Audits tab.
+5. Click Perform an audit. DevTools shows you a list of audit categories. Leave them all 
+enabled.
+6. Click Run audit. After 30 to 60 seconds, Lighthouse gives you a report on the page.
